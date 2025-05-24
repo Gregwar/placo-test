@@ -45,5 +45,6 @@ jobs:
       - name: Test import et wrap_angle
         run: |
           echo "DEBUG: Exécution du script de test"
+          export DYLD_LIBRARY_PATH=$(python -c "import site; print(site.getsitepackages()[0])")/cmeel.prefix/lib/
           python -c "import placo; print('placo.wrap_angle(2) =', placo.wrap_angle(2))"
 
