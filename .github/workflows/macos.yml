@@ -34,7 +34,7 @@ jobs:
       - name: Affiche le contenu du site-packages (arborescence)
         run: |
           SITE_PACKAGES=$(python -c "import site; print(site.getsitepackages()[0])")
-	  ls -lAh $SITE_PACKAGES/cmeel.prefix/lib/
+          ls -lAh $SITE_PACKAGES/cmeel.prefix/lib/
 
       - name: Test import et wrap_angle
         run: |
