@@ -1,4 +1,4 @@
-name: Test placo sur macOS
+name: Test placo sur Linux
 
 on:
   push:
