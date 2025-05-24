@@ -1,0 +1,45 @@
+name: Test placo sur macOS
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test-placo:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Configuration de Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'  # 3.11+ recommandé sur macos-latest pour éviter des soucis de compatibilité[5]
+
+      - name: Affiche la version de Python et pip
+        run: |
+          python --version
+          pip --version
+
+      - name: Mise à jour de pip, setuptools et wheel
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+
+      - name: Installation de placo
+        run: |
+          echo "DEBUG: Installation de placo"
+          pip install placo
+
+      - name: Affiche le contenu du site-packages (arborescence)
+        run: |
+          echo "DEBUG: Recherche du site-packages"
+          SITE_PACKAGES=$(python -c "import site; print(site.getsitepackages()[0])")
+          echo "DEBUG: site-packages = $SITE_PACKAGES"
+          tree -L 2 $SITE_PACKAGES || ls -lR $SITE_PACKAGES
+
+      - name: Test import et wrap_angle
+        run: |
+          echo "DEBUG: Exécution du script de test"
+          python -c "import placo; print('placo.wrap_angle(2) =', placo.wrap_angle(2))"
+
