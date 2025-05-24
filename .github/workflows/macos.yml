@@ -36,10 +36,10 @@ jobs:
           SITE_PACKAGES=$(python -c "import site; print(site.getsitepackages()[0])")
           ls -lAh $SITE_PACKAGES/cmeel.prefix/lib/
       
-      - name: Affiche le contenu du site-packages/py*/site-packages (arborescence)
+      - name: otool
         run: |
           SITE_PACKAGES=$(python -c "import site; print(site.getsitepackages()[0])")
-          ls -lAh $SITE_PACKAGES/cmeel.prefix/lib/python*/site-packages/
+          otool -L $SITE_PACKAGES/cmeel.prefix/lib/python3.11/site-packages/placo.so
 
       - name: Test import et wrap_angle
         run: |
