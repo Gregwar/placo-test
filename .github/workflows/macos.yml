@@ -42,6 +42,11 @@ jobs:
           SITE_PACKAGES=$(python -c "import site; print(site.getsitepackages()[0])")
           otool -L $SITE_PACKAGES/cmeel.prefix/lib/python3.11/site-packages/placo.so
 
+      - name: otool pin
+        run: |
+          SITE_PACKAGES=$(python -c "import site; print(site.getsitepackages()[0])")
+          otool -L $SITE_PACKAGES/cmeel.prefix/lib/python3.11/site-packages/pinocchio/*.so
+
       - name: Test import et wrap_angle
         run: |
           echo "DEBUG: Exécution du script de test"
