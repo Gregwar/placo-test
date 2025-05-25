@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout du code
+      - name: Checkout 
         uses: actions/checkout@v4
 
       - name: Configuration de Python
@@ -17,12 +17,12 @@ jobs:
         with:
           python-version: '3.11'  # 3.11+ recommandé sur macos-latest pour éviter des soucis de compatibilité[5]
 
-      - name: Affiche la version de Python et pip
+      - name: Showing py version
         run: |
           python --version
           pip --version
 
-      - name: Mise à jour de pip, setuptools et wheel
+      - name: Mise à jour de pip
         run: |
           python -m pip install --upgrade pip setuptools wheel
 
@@ -31,13 +31,14 @@ jobs:
           echo "DEBUG: Installation de placo"
           pip install placo
 
-      - name: Affiche le contenu du site-packages (arborescence)
+      - name: clone
         run: |
-          SITE_PACKAGES=$(python -c "import site; print(site.getsitepackages()[0])")
-          ls -lAh $SITE_PACKAGES/cmeel.prefix/lib/
-
-      - name: Test import et wrap_angle
+          git clone https://github.com/rhoban/placo.git
+          
+      - name: Test
         run: |
-          echo "DEBUG: Exécution du script de test"
-          python -c "import placo; print('placo.wrap_angle(2) =', placo.wrap_angle(2))"
+          cd placo/python
+          python -m unittest discover tests/ "*_test.py"
+          
+          
 
