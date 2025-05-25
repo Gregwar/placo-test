@@ -14,36 +14,29 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout 
-        uses: actions/checkout@v4
-
-      - name: Configuration de Python
+      - name: Configuring Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Showing py version
+      - name: Showing Python & pip version
         run: |
           python --version
           pip --version
 
-      - name: Mise à jour de pip
+      - name: Upodating pip
         run: |
           python -m pip install --upgrade pip setuptools wheel
 
-      - name: Placo install
+      - name: Installing PlaCO
         run: |
-          echo "DEBUG: Installation de placo"
           pip install placo matplotlib
 
-      - name: clone
+      - name: Cloning PlaCo repository
         run: |
-          git clone https://github.com/rhoban/placo.git
-          
-      - name: Test
+          git clone --depth=1 https://github.com/rhoban/placo.git
+
+      - name: Running PlaCo tests
         run: |
           cd placo/python
           python -m unittest discover tests/ "*_test.py"
-          
-          
-
