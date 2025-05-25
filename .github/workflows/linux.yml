@@ -10,6 +10,7 @@ jobs:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
         os: [macos-latest, ubuntu-latest, macos-13]
+      fail-fast: false
     runs-on: ${{ matrix.os }}
 
     steps:
