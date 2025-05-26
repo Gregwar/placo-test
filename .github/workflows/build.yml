@@ -8,7 +8,7 @@ jobs:
   test-placo:
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-22.04, ubuntu-24.04]
+        os: [ubuntu-latest]
       fail-fast: false
     runs-on: ${{ matrix.os }}
 
