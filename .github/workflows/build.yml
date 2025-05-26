@@ -1,0 +1,39 @@
+name: Placo tests grid
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test-placo:
+    strategy:
+      matrix:
+        python-version: ["3.13"]
+        os: [macos-latest]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Configuring Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Showing Python & pip version
+        run: |
+          python --version
+          pip --version
+
+      - name: Upodating pip
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+
+      - name: Cloning PlaCo repository
+        run: |
+          git clone --depth=1 https://github.com/rhoban/placo.git
+
+      - name: Installing requirements
+        run: |
+          cd placo/
+          bash scripts/requirements.sh
+          
