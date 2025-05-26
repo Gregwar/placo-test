@@ -36,4 +36,15 @@ jobs:
         run: |
           cd placo/
           bash scripts/requirements.sh
+
+      - name: CMake
+        run: |
+          cd placo/
+          mkdir build
+          cmake -S . -B build
+
+      - name: Building PlaCo
+        run: |
+          cd placo/build
+          make -j4
           
