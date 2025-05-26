@@ -67,7 +67,7 @@ jobs:
       - name: Running PlaCo tests
         run: |
           cd placo/python
-          python -m unittest discover python/tests/ "*_test.py"
+          python -m unittest discover tests/ "*_test.py"
 
 
 
