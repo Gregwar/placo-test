@@ -1,4 +1,4 @@
-name: Placo tests grid
+name: Placo building
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.13"]
-        os: [macos-latest]
+        os: [ubuntu-latest]
       fail-fast: false
     runs-on: ${{ matrix.os }}
 
