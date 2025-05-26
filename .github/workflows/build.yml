@@ -8,7 +8,6 @@ jobs:
   test-placo:
     strategy:
       matrix:
-        python-version: ["3.13"]
         os: [ubuntu-latest]
       fail-fast: false
     runs-on: ${{ matrix.os }}
@@ -20,8 +19,6 @@ jobs:
     steps:
       - name: Configuring Python
         uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
 
       - name: Showing Python & pip version
         run: |
@@ -41,12 +38,14 @@ jobs:
           cd placo/
           bash scripts/requirements.sh
 
-      - name: Showing ~/.bashrc
+      - name: Adding values to GITHUB_ENV
         run: |
-          cat ~/.bashrc
-          source ~/.bashrc
-          echo $LD_LIBRARY_PATH
-          echo $CMAKE_PREFIX_PATH
+          echo "PATH=/opt/openrobots/bin:$PATH" >> $GITHUB_ENV
+          echo "PKG_CONFIG_PATH=/opt/openrobots/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
+          echo "LD_LIBRARY_PATH=/opt/openrobots/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
+          export PYTHON_VERSION=`python --version|cut -d" " -f2|cut -d"." -f-2`
+          echo "PYTHONPATH=/opt/openrobots/lib/python${PYTHON_VERSION}/site-packages:$PYTHONPATH" >> $GITHUB_ENV
+          echo "CMAKE_PREFIX_PATH=/opt/openrobots:$CMAKE_PREFIX_PATH" >> $GITHUB_ENV
 
       - name: CMake
         run: |
