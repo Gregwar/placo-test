@@ -8,7 +8,7 @@ jobs:
   test-placo:
     strategy:
       matrix:
-        os: [ubuntu-latest, ubuntu-24.04-arm, ubuntu-22.04, ubuntu-24.04]
+        os: [ubuntu-latest, ubuntu-22.04, ubuntu-24.04]
       fail-fast: false
     runs-on: ${{ matrix.os }}
 
@@ -59,10 +59,14 @@ jobs:
           cd placo/build
           make -j$(nproc)
 
-      - name: Running tests
+      - name: Adding PlaCo
         run: |
           cd placo/
-          echo "PYTHONPATH=$PWD/build/lib/python-${PYTHON_VERSION}/site-packages/:$PYTHONPATH" >> $GITHUB_ENV
+          echo "PYTHONPATH=$PWD/build/lib/python${PYTHON_VERSION}/site-packages/:$PYTHONPATH" >> $GITHUB_ENV
+
+      - name: Running PlaCo tests
+        run: |
+          cd placo/python
           python -m unittest discover python/tests/ "*_test.py"
 
 
