@@ -13,6 +13,10 @@ jobs:
       fail-fast: false
     runs-on: ${{ matrix.os }}
 
+    defaults:
+      run:
+        shell: bash
+
     steps:
       - name: Configuring Python
         uses: actions/setup-python@v5
@@ -36,6 +40,10 @@ jobs:
         run: |
           cd placo/
           bash scripts/requirements.sh
+
+      - name: Showing ~/.bashrc
+        run: |
+          cat ~/.bashrc
 
       - name: CMake
         run: |
