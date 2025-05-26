@@ -8,7 +8,7 @@ jobs:
   test-placo:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, ubuntu-24.04-arm, ubuntu-22.04, ubuntu-24.04]
       fail-fast: false
     runs-on: ${{ matrix.os }}
 
@@ -61,6 +61,7 @@ jobs:
 
       - name: Running tests
         run: |
+          cd placo/
           echo "PYTHONPATH=$PWD/build/lib/python-${PYTHON_VERSION}/site-packages/:$PYTHONPATH" >> $GITHUB_ENV
           python -m unittest discover python/tests/ "*_test.py"
 
