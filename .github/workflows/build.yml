@@ -39,6 +39,7 @@ jobs:
 
       - name: CMake
         run: |
+          source ~/.bashrc
           cd placo/
           mkdir build
           cmake -S . -B build
