@@ -44,6 +44,9 @@ jobs:
       - name: Showing ~/.bashrc
         run: |
           cat ~/.bashrc
+          source ~/.bashrc
+          echo $LD_LIBRARY_PATH
+          echo $CMAKE_PREFIX_PATH
 
       - name: CMake
         run: |
