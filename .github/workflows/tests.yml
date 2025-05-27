@@ -1,4 +1,4 @@
-name: Placo tests grid
+name: pip install and test PlaCo
 
 on:
   push:
