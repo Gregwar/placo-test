@@ -28,10 +28,14 @@ jobs:
       - name: Updating pip
         run: |
           python -m pip install --upgrade pip setuptools wheel
+      
+      - name: Installing system python3 deps
+        run: |
+          sudo apt install -y python3-numpy python3-scipy python3-matplotlib
 
       - name: Installing meshcat and matplotlib
         run: |
-          python -m pip install meshcat matplotlib
+          python -m pip install meshcat
 
       - name: Cloning PlaCo repository
         run: |
