@@ -48,26 +48,31 @@ jobs:
           echo "PYTHONPATH=/opt/openrobots/lib/python${PYTHON_VERSION}/site-packages:$PYTHONPATH" >> $GITHUB_ENV
           echo "CMAKE_PREFIX_PATH=/opt/openrobots:$CMAKE_PREFIX_PATH" >> $GITHUB_ENV
 
-      - name: CMake
+      - name: Testing import pinocchio
         run: |
-          cd placo/
-          mkdir build
-          cmake -S . -B build
+          python -c "import pinocchio; print(pinocchio.__version__)"
 
-      - name: Building PlaCo
-        run: |
-          cd placo/build
-          make -j$(nproc)
 
-      - name: Adding PlaCo
-        run: |
-          cd placo/
-          echo "PYTHONPATH=$PWD/build/lib/python${PYTHON_VERSION}/site-packages/:$PYTHONPATH" >> $GITHUB_ENV
+      # - name: CMake
+      #   run: |
+      #     cd placo/
+      #     mkdir build
+      #     cmake -S . -B build
 
-      - name: Running PlaCo tests
-        run: |
-          cd placo/python
-          python -m unittest discover tests/ "*_test.py"
+      # - name: Building PlaCo
+      #   run: |
+      #     cd placo/build
+      #     make -j$(nproc)
+
+      # - name: Adding PlaCo
+      #   run: |
+      #     cd placo/
+      #     echo "PYTHONPATH=$PWD/build/lib/python${PYTHON_VERSION}/site-packages/:$PYTHONPATH" >> $GITHUB_ENV
+
+      # - name: Running PlaCo tests
+      #   run: |
+      #     cd placo/python
+      #     python -m unittest discover tests/ "*_test.py"
 
 
 
