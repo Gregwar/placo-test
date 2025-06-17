@@ -1,0 +1,40 @@
+name: Build
+
+on:
+  release:
+    types:
+      - published
+  push:
+    branches:
+      - 'master'               # Sur tout push, toutes branches
+
+env:
+  CIBW_SKIP: "*i686 *musl* *armv7* *ppc64* *s390*"
+  CIBW_REPAIR_WHEEL_COMMAND: ""
+  CIBW_TEST_REQUIRES: matplotlib
+  CIBW_TEST_COMMAND: "python -m unittest discover python/tests/ \"*_test.py\""
+  CIBW_BEFORE_ALL: |
+    yum install -y doxygen
+
+jobs:
+  build_wheels:
+    name: Wheel ${{ matrix.os }}, ${{ matrix.pyver }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        pyver: [cp312]
+
+    steps:
+      - name: Cloning PlaCo repository
+        run: git clone --depth=1 https://github.com/rhoban/placo.git
+
+      - name: Running doxygen
+        run: |
+          cd placo/
+          doxygen Doxyfile
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: doxygen
+          path: ./placo/xml/*
