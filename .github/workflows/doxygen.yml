@@ -9,8 +9,6 @@ env:
   CIBW_REPAIR_WHEEL_COMMAND: ""
   CIBW_TEST_REQUIRES: matplotlib
   CIBW_TEST_COMMAND: "python -m unittest discover python/tests/ \"*_test.py\""
-  CIBW_BEFORE_ALL: |
-    yum install -y doxygen
 
 jobs:
   build_wheels:
@@ -24,6 +22,11 @@ jobs:
     steps:
       - name: Cloning PlaCo repository
         run: git clone --depth=1 https://github.com/rhoban/placo.git
+
+      - name: Installing Doxygen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz
 
       - name: Running doxygen
         run: |
