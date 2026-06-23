@@ -8,7 +8,7 @@ jobs:
   test-placo:
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
         os: [macos-latest, ubuntu-latest, macos-13, ubuntu-24.04-arm]
         exclude:
           - python-version: "3.8"
